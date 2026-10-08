@@ -37,14 +37,14 @@ for target in "${targets[@]}"; do
   fi
 done
 for target in "${targets[@]}"; do
-  if [ -f "$target" ] && [ ! -L "$target" ] && cmp -s -- "$source_file" "$target"; then
+  if [ -f "$target" ] && cmp -s -- "$source_file" "$target"; then
     echo "Already up to date: $target"
     continue
   fi
-  if [ -e "$target" ] || [ -L "$target" ]; then
+  if [ -e "$target" ]; then
     saved="$target.pre-agent-config"
     index=1
-    while [ -e "$saved" ] || [ -L "$saved" ]; do
+    while [ -e "$saved" ]; do
       saved="$target.pre-agent-config.$index"
       index=$((index + 1))
     done

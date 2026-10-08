@@ -16,7 +16,7 @@ cd ~/code/agent-config
 
 The installer skips an agent if its command is missing from PATH or its config folder does not exist
 
-The installer copies `personality.md` into `~/.codex/AGENTS.md` and `~/.claude/CLAUDE.md` as regular files. Existing instructions are backed up before replacement. Identical files are left alone. Existing symlinks are replaced with regular files.
+The installer copies `personality.md` into `~/.codex/AGENTS.md` and `~/.claude/CLAUDE.md` as regular files. Existing instructions are backed up before replacement. Identical files are left alone.
 
 
 ## Update
