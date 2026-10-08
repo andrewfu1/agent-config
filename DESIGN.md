@@ -27,7 +27,7 @@ Minimal implementation means solving the actual problem with existing tools when
 
 ## Scope and limits
 
-The installer uses each tool's global instruction location. It backs up existing instructions rather than combining potentially conflicting prompts. Review backups if you want to retain any old preferences.
+The installer uses each tool's global instruction location. It requires the agent command on PATH and an existing config folder; otherwise, it prints a skip message and leaves that agent untouched. It backs up existing instructions rather than combining potentially conflicting prompts. Review backups if you want to retain any old preferences.
 
 - [Codex: global instructions](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
 - [Claude Code: user instructions](https://code.claude.com/docs/en/memory)

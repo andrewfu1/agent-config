@@ -10,6 +10,8 @@ cd ~/code/agent-config
 ./install.sh
 ```
 
+The installer skips an agent if its command is missing from PATH or its config folder does not exist, and prints the reason. Start a newly installed agent once before running this installer.
+
 The installer links `personality.md` to `~/.codex/AGENTS.md` and `~/.claude/CLAUDE.md`. Existing instruction files are backed up, then replaced by links. Rerunning does not duplicate anything. It honors `CODEX_HOME` and `CLAUDE_CONFIG_DIR` when set.
 
 Run on each machine where you use the agents, then start new sessions. Keep this checkout in place.

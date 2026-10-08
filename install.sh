@@ -9,15 +9,34 @@ repo_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
 source_file="$repo_dir/personality.md"
 codex_dir="${CODEX_HOME:-$HOME/.codex}"
 claude_dir="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
-# Check both destinations before changing either one.
-for target in "$codex_dir/AGENTS.md" "$claude_dir/CLAUDE.md"; do
+targets=()
+for agent in codex claude; do
+  case "$agent" in
+    codex) label='Codex'; config_dir="$codex_dir"; filename='AGENTS.md' ;;
+    claude) label='Claude Code'; config_dir="$claude_dir"; filename='CLAUDE.md' ;;
+  esac
+  if ! command -v "$agent" >/dev/null 2>&1; then
+    echo "Skipped $label: '$agent' command not found on PATH."
+    continue
+  fi
+  if [ ! -d "$config_dir" ]; then
+    echo "Skipped $label: config folder does not exist: $config_dir. Run $agent once, then rerun this installer."
+    continue
+  fi
+  targets+=("$config_dir/$filename")
+done
+if [ "${#targets[@]}" -eq 0 ]; then
+  echo 'No agent configs updated.'
+  exit 0
+fi
+# Check eligible destinations before changing either one.
+for target in "${targets[@]}"; do
   if [ -d "$target" ]; then
     echo "Expected an instruction file, found a directory: $target" >&2
     exit 1
   fi
 done
-for target in "$codex_dir/AGENTS.md" "$claude_dir/CLAUDE.md"; do
-  mkdir -p -- "$(dirname -- "$target")"
+for target in "${targets[@]}"; do
   if [ -L "$target" ] && [ "$(readlink "$target")" = "$source_file" ]; then
     echo "Already linked: $target"
     continue
@@ -38,4 +57,4 @@ done
 if [ -s "$codex_dir/AGENTS.override.md" ]; then
   echo 'Note: your existing AGENTS.override.md takes precedence over the Codex personality file.'
 fi
-echo 'Start new Codex and Claude Code sessions to load the preferences.'
+echo 'Start new sessions in the updated agents to load the preferences.'
