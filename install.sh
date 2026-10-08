@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Link one personality file to the global instruction locations for both tools.
+# Copy the personality text to the global instruction files for both tools.
 set -euo pipefail
 if [ "$#" -ne 0 ]; then
   echo 'Usage: ./install.sh' >&2
@@ -37,8 +37,8 @@ for target in "${targets[@]}"; do
   fi
 done
 for target in "${targets[@]}"; do
-  if [ -L "$target" ] && [ "$(readlink "$target")" = "$source_file" ]; then
-    echo "Already linked: $target"
+  if [ -f "$target" ] && [ ! -L "$target" ] && cmp -s -- "$source_file" "$target"; then
+    echo "Already up to date: $target"
     continue
   fi
   if [ -e "$target" ] || [ -L "$target" ]; then
@@ -51,8 +51,8 @@ for target in "${targets[@]}"; do
     mv -- "$target" "$saved"
     echo "Backed up: $saved"
   fi
-  ln -s -- "$source_file" "$target"
-  echo "Linked: $target"
+  cp -- "$source_file" "$target"
+  echo "Copied: $target"
 done
 if [ -s "$codex_dir/AGENTS.override.md" ]; then
   echo 'Note: your existing AGENTS.override.md takes precedence over the Codex personality file.'
