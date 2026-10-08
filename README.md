@@ -1,10 +1,10 @@
 # Agent Config
 
-Global personality preferences for Codex and Claude Code. 
+Global personality preferences for Codex and Claude Code.
 
-- Reduce LLM sycophancy
-- ASD-STE100 inspired english
-- Programming best practices
+1. Reduce LLM sycophancy
+2. ASD-STE100 inspired english
+3. Programming best practices
 
 ## Install
 
@@ -16,14 +16,4 @@ cd ~/code/agent-config
 
 The installer skips an agent if its command is missing from PATH or its config folder does not exist
 
-The installer copies `personality.md` into `~/.codex/AGENTS.md` and `~/.claude/CLAUDE.md` as regular files. Existing instructions are backed up before replacement. Identical files are left alone.
-
-
-## Update
-
-```sh
-git pull --ff-only
-./install.sh
-```
-
-Start new agent sessions after installing updates. The installed files work independently of this repo.
+The installer copies `personality.md` into `~/.codex/AGENTS.md` and `~/.claude/CLAUDE.md` as regular files. Existing instructions are backed up before replacement.
