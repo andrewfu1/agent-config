@@ -6,7 +6,7 @@ if [ "$#" -ne 0 ]; then
   exit 2
 fi
 repo_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)"
-source_file="$repo_dir/personality.md"
+source_file="$repo_dir/concise_personality.md"
 codex_dir="${CODEX_HOME:-$HOME/.codex}"
 claude_dir="${CLAUDE_CONFIG_DIR:-$HOME/.claude}"
 targets=()
